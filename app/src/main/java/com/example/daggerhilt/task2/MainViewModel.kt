@@ -1,6 +1,8 @@
 package com.example.daggerhilt.task2
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Zadanie 2 - Krok 4: Stwórz HiltViewModel
@@ -9,15 +11,13 @@ import androidx.lifecycle.ViewModel
  * TODO: Dodaj adnotację @Inject do konstruktora
  * TODO: Wstrzyknij GreetingService jako parametr konstruktora
  */
-/* TODO: Dodaj @HiltViewModel */
-class MainViewModel /* TODO: Dodaj @Inject constructor */ (
-    // TODO: Wstrzyknij GreetingService
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val greetingService: GreetingService
 ) : ViewModel() {
 
     fun getWelcomeMessage(): String {
-        // TODO: Użyj GreetingService do wygenerowania wiadomości
-        // return greetingService.getGreeting("Student")
-        return "TODO: Zaimplementuj wstrzykiwanie GreetingService"
+        return greetingService.getGreeting("Student")
     }
 }
 

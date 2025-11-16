@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.daggerhilt.ui.theme.DaggerHiltTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Zadanie 2 - Krok 2 i 5: Skonfiguruj Activity dla Hilt
@@ -19,11 +20,11 @@ import com.example.daggerhilt.ui.theme.DaggerHiltTheme
  * TODO: Dodaj adnotację @AndroidEntryPoint do tej klasy
  * TODO: Wstrzyknij MainViewModel przez viewModels()
  */
-/* TODO: Dodaj @AndroidEntryPoint */
+@AndroidEntryPoint
 class Task2MainActivity : ComponentActivity() {
     
-    // TODO: Wstrzyknij ViewModel
-    // private val viewModel: MainViewModel by viewModels()
+    // Wstrzyknij ViewModel
+    private val viewModel: MainViewModel by viewModels()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +57,9 @@ class Task2MainActivity : ComponentActivity() {
             
             Spacer(modifier = Modifier.height(32.dp))
             
-            // TODO: Wyświetl wiadomość z ViewModel
+            // Wyświetl wiadomość z ViewModel
             Text(
-                text = "TODO: Pobierz wiadomość z ViewModel",
-                // text = viewModel.getWelcomeMessage(),
+                text = viewModel.getWelcomeMessage(),
                 style = MaterialTheme.typography.bodyLarge
             )
             
@@ -74,10 +74,9 @@ class Task2MainActivity : ComponentActivity() {
     }
     
     private fun showToast() {
-        // TODO: Użyj viewModel.getWelcomeMessage()
         Toast.makeText(
             this,
-            "TODO: Zaimplementuj wstrzykiwanie ViewModel",
+            viewModel.getWelcomeMessage(),
             Toast.LENGTH_LONG
         ).show()
     }

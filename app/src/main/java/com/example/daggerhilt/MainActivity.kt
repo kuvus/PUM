@@ -1,5 +1,6 @@
 package com.example.daggerhilt
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -10,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.daggerhilt.task2.Task2MainActivity
 import com.example.daggerhilt.ui.theme.DaggerHiltTheme
 
 /**
@@ -100,11 +102,8 @@ class MainActivity : ComponentActivity() {
         Toast.makeText(this, "TODO: Zaimplementuj Zadanie 1", Toast.LENGTH_SHORT).show()
     }
 
-    /**
-     * Zadanie 2 - Do zaimplementowania w następnym kroku
-     */
+    /** Zadanie 2 - Uruchom Task2MainActivity */
     private fun runTask2() {
-        Toast.makeText(this, "TODO: Zaimplementuj Zadanie 2", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, Task2MainActivity::class.java))
     }
 }
-
