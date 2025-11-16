@@ -1,5 +1,7 @@
 package com.example.daggerhilt.task1
 
+import dagger.Component
+
 /**
  * Zadanie 1 - Krok 3: Stwórz Component
  * 
@@ -9,8 +11,8 @@ package com.example.daggerhilt.task1
  * Po dodaniu adnotacji przebuduj projekt (Build > Rebuild Project),
  * aby Dagger wygenerował implementację (DaggerAppComponent).
  */
-/* TODO: Dodaj @Component(modules = [NetworkModule::class]) */
+@Component(modules = [NetworkModule::class])
 interface AppComponent {
-    // TODO: Dodaj metodę getUserRepository(): UserRepository
+    fun getUserRepository(): UserRepository
 }
 

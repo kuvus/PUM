@@ -15,8 +15,8 @@ import com.example.daggerhilt.ui.theme.DaggerHiltTheme
 /**
  * MainActivity - Punkt wejścia aplikacji
  *
- * ZADANIE 1: Użyj Dagger 2 do wstrzyknięcia UserRepository
- * ZADANIE 2: Użyj Hilt do wstrzyknięcia ViewModel
+ * ZADANIE 1: Użyj Dagger 2 do wstrzyknięcia UserRepository ZADANIE 2: Użyj Hilt do wstrzyknięcia
+ * ViewModel
  *
  * Przełączaj się między zadaniami, komentując/odkomentowując odpowiednie sekcje.
  */
@@ -27,11 +27,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             DaggerHiltTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
-                }
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                ) { MainScreen() }
             }
         }
     }
@@ -41,43 +39,29 @@ class MainActivity : ComponentActivity() {
         var message by remember { mutableStateOf("Wybierz zadanie do wykonania") }
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                modifier = Modifier.fillMaxSize().padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Dagger 2 & Hilt Workshop",
-                style = MaterialTheme.typography.headlineMedium
-            )
+            Text(text = "Dagger 2 & Hilt Workshop", style = MaterialTheme.typography.headlineMedium)
 
             Spacer(modifier = Modifier.height(32.dp))
 
             // ZADANIE 1: Dagger 2
-            Button(
-                onClick = { runTask1() },
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            Button(onClick = { runTask1() }, modifier = Modifier.fillMaxWidth()) {
                 Text("Zadanie 1: Dagger 2")
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // ZADANIE 2: Hilt
-            Button(
-                onClick = { runTask2() },
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            Button(onClick = { runTask2() }, modifier = Modifier.fillMaxWidth()) {
                 Text("Zadanie 2: Hilt")
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            Text(
-                text = message,
-                style = MaterialTheme.typography.bodyLarge
-            )
+            Text(text = message, style = MaterialTheme.typography.bodyLarge)
         }
     }
 
@@ -87,24 +71,19 @@ class MainActivity : ComponentActivity() {
      * TODO: Odkomentuj poniższy kod i uzupełnij implementację
      */
     private fun runTask1() {
-        // TODO: Utwórz instancję DaggerAppComponent
-        // val component = DaggerAppComponent.create()
+        // Utwórz instancję DaggerAppComponent
+        val component = com.example.daggerhilt.task1.DaggerAppComponent.create()
 
-        // TODO: Pobierz UserRepository z komponentu
-        // val repository = component.getUserRepository()
+        // Pobierz UserRepository z komponentu
+        val repository = component.getUserRepository()
 
-        // TODO: Wyświetl dane z repository w Toast
-        // val data = repository.getUserData()
-        // Toast.makeText(this, data, Toast.LENGTH_LONG).show()
-
-        Toast.makeText(this, "TODO: Zaimplementuj Zadanie 1", Toast.LENGTH_SHORT).show()
+        // Wyświetl dane z repository w Toast
+        val data = repository.getUserData()
+        Toast.makeText(this, data, Toast.LENGTH_LONG).show()
     }
 
-    /**
-     * Zadanie 2 - Do zaimplementowania w następnym kroku
-     */
+    /** Zadanie 2 - Do zaimplementowania w następnym kroku */
     private fun runTask2() {
         Toast.makeText(this, "TODO: Zaimplementuj Zadanie 2", Toast.LENGTH_SHORT).show()
     }
 }
-
