@@ -51,13 +51,15 @@ Informuje Dagger, że ta klasa może być tworzona automatycznie, wstrzykując `
 
 Otwórz: `app/src/main/java/com/example/daggerhilt/task1/NetworkModule.kt`
 
-Dodaj adnotacje `@Module` i `@Provides`:
+Dodaj adnotacje `@Module`, `@DisableInstallInCheck` i `@Provides`:
 
 ```kotlin
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.migration.DisableInstallInCheck
 
 @Module
+@DisableInstallInCheck
 class NetworkModule {
 
     @Provides
@@ -67,9 +69,13 @@ class NetworkModule {
 }
 ```
 
-**Co to robi?**  
-Moduł informuje Dagger, jak stworzyć instancję `ApiService`. Metoda `@Provides` zwraca mockową
-implementację.
+**Co to robi?**
+
+- `@Module` - informuje Dagger, że ta klasa dostarcza zależności
+- `@DisableInstallInCheck` - informuje Hilt (jeśli jest w projekcie), że ten moduł używa czystego Dagger 2
+- `@Provides` - oznacza metodę, która dostarcza konkretną zależność (`ApiService`)
+
+Metoda `provideApiService()` zwraca mockową implementację `ApiService`.
 
 ---
 
@@ -179,3 +185,37 @@ Jeśli wszystko działa poprawnie:
 - `NetworkModule` ma adnotację `@Module`
 - Metoda `provideApiService` ma adnotację `@Provides`
 - `AppComponent` ma `modules = [NetworkModule::class]`
+
+### Problem: "[Hilt] NetworkModule is missing an @InstallIn annotation"
+
+**Opis problemu**:  
+Jeśli w projekcie jest już skonfigurowany Hilt (do użycia w Zadaniu 2), podczas kompilacji może pojawić się błąd:
+
+```
+[Hilt] com.example.daggerhilt.task1.NetworkModule is missing an @InstallIn annotation.
+```
+
+**Przyczyna**:  
+Hilt domyślnie wymaga, aby wszystkie moduły oznaczone `@Module` miały również adnotację `@InstallIn`, która określa, w którym komponencie Hilt mają być zainstalowane. Jednak w Zadaniu 1 używamy czystego Dagger 2 (bez Hilt), więc nasz moduł nie powinien być zarządzany przez Hilt.
+
+**Rozwiązanie**:  
+Dodaj adnotację `@DisableInstallInCheck` do `NetworkModule`, aby poinformować Hilt, że ten moduł jest przeznaczony dla czystego Dagger 2:
+
+```kotlin
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.migration.DisableInstallInCheck
+
+@Module
+@DisableInstallInCheck  // <- Dodaj tę linię
+class NetworkModule {
+
+    @Provides
+    fun provideApiService(): ApiService {
+        return MockApiService()
+    }
+}
+```
+
+**Co to robi?**  
+Adnotacja `@DisableInstallInCheck` informuje procesor Hilt, że ten konkretny moduł jest celowo używany z czystym Dagger 2 i nie powinien być sprawdzany pod kątem wymagań Hilt. Dzięki temu możemy mieć w tym samym projekcie zarówno kod używający czystego Dagger 2 (Zadanie 1), jak i kod używający Hilt (Zadanie 2).
